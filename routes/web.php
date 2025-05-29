@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\IklanController;
 use App\Http\Controllers\KategoriBeritaController;
@@ -14,12 +15,15 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 // Edit Profile Route
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Guest Profile Route
 Route::get('/', [QuestionController::class, 'index'])->name('index');
 Route::post('/question/submit', [QuestionController::class, 'store'])->name('question.submit');
 Route::get('/ranking', [QuestionController::class, 'ranking'])->name('ranking');
@@ -46,7 +50,8 @@ Route::post('/submit-npm', function (Request $request) {
     ]);
 });
 Route::get('/quiz-questions', [QuestionController::class, 'getQuestionsByCategory']);
-
+Route::get('/kritik-saran/form', [FeedbackController::class, 'form'])->name('feedback.form');
+Route::post('/kritik-saran', [FeedbackController::class, 'store'])->name('feedback.store');
 
 // Admin Route
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
@@ -75,6 +80,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // Berita Kategori
     Route::post('/kategori-berita/save', [KategoriBeritaController::class, 'save'])->name('kategori-berita.save');
     Route::post('/kategori-berita/delete/{id}', [KategoriBeritaController::class, 'delete'])->name('kategori-berita.delete');
+    // Feedback
+    Route::get('/kritik-saran', [FeedbackController::class, 'index'])->name('feedback.show');
+    Route::get('/kritik-saran/{id}', [FeedbackController::class, 'showDetail'])->name('feedback.detail');
     // Game
     Route::get('/questions', [AdminController::class, 'question'])->name('index');
     Route::post('/questions', [AdminController::class, 'createQuestion'])->name('createQuestion');

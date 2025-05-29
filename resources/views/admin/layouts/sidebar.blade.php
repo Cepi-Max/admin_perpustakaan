@@ -42,7 +42,13 @@
                 <a href="{{ route('admin.visitors') }}" 
                    class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-yellow-400 transition-colors duration-200 {{ request()->routeIs('admin.visitors') ? 'bg-gray-700 text-yellow-400' : '' }}">
                     <i class="bi bi-people-fill mr-3"></i>
-                    <span class="font-medium">Pengunjung Hari Ini</span>
+                    <span class="font-medium">Pengunjung</span>
+                </a>
+
+                <a href="{{ route('admin.feedback.show') }}" 
+                   class="flex items-center px-4 py-3 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-yellow-400 transition-colors duration-200 {{ request()->routeIs('admin.feedback.*') ? 'bg-gray-700 text-yellow-400' : '' }}">
+                    <i class="bi bi-people-fill mr-3"></i>
+                    <span class="font-medium">Kritik dan Saran</span>
                 </a>
             </div>
             
