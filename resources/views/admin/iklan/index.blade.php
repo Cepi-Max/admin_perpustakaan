@@ -5,7 +5,7 @@
 @section('content')
 <div x-data="galleryViewer()" class="space-y-6">
     <!-- Header Section -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="bg-white rounded-xl shadow-lg p-6">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Iklan Perpustakaan</h1>
@@ -58,7 +58,7 @@
 
     <!-- Toolbar -->
     @if($iklans->count() > 0)
-    <div class="bg-white rounded-xl shadow-sm p-4">
+    <div class="bg-white rounded-xl shadow-lg p-4">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex flex-wrap items-center gap-2">
                 <button @click="selectAll" 
@@ -159,7 +159,7 @@
         </div>
         @else
         <!-- Empty State -->
-        <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+        <div class="bg-white rounded-xl shadow-lg p-12 text-center">
             <div class="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
                 <i class="bi bi-images text-gray-400 text-4xl"></i>
             </div>

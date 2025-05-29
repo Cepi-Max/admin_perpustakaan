@@ -3,7 +3,7 @@
 @section('breadcrumb', 'Berita')
 
 @section('content')
-<div class="container mx-auto py-8 px-4">
+<div class="space-y-6">
     <div class="bg-white rounded-xl shadow-lg p-6">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
