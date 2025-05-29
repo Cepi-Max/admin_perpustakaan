@@ -1,5 +1,7 @@
 @extends('admin.layouts.app')
 
+@section('breadcrumb', 'Form')
+
 @section('content')
 <div class="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow-md">
   <h1 class="text-2xl font-bold text-gray-800 mb-4">
@@ -8,9 +10,6 @@
 
   <form action="{{ isset($galeri) ? route('admin.galeri.update', $galeri->id) : route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @if(isset($galeri))
-      @method('PUT')
-    @endif
 
     <div class="mb-6">
       <label for="gambar" class="block text-sm font-medium text-gray-700 mb-2">Gambar</label>

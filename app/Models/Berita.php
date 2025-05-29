@@ -24,7 +24,7 @@ class Berita extends Model
 
     public function kategori_berita(): BelongsTo
     {
-        return $this->belongsTo(KategoriBerita::class);
+        return $this->belongsTo(KategoriBerita::class, 'berita_category_id');
     }
 
     public function scopeFilter(Builder $query, array $filter): void

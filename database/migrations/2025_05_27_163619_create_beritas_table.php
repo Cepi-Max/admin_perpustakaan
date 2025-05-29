@@ -15,18 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('title');
-            $table->foreignId('author_id')->constrained(
-                table: 'users',
-                indexName: 'berita_author_id' 
-            )->onDelete('cascade');
-            $table->foreignId('berita_category_id')->constrained(
-                table: 'kategori_beritas',
-                indexName: 'berita_category_id' 
-            );
-            $table->string('inovator');
+            $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('berita_category_id')->constrained('kategori_beritas')->onDelete('cascade');
+            $table->string('inovator')->nullable(); // Opsional kalau tidak selalu ada
             $table->longText('body');
-            $table->string('image');
-            $table->integer('seen')->default(0);;
+            $table->string('image')->nullable(); // Boleh kosong kalau belum upload
+            $table->unsignedBigInteger('seen')->default(0); // Gunakan unsigned untuk hitungan
             $table->timestamps();
         });
     }

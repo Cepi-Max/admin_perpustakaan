@@ -10,7 +10,7 @@
     <nav class="mt-8 flex-1 px-4">
       <ul class="space-y-4">
         <li>
-          <a href="{{ route('dashboard') }}" class="flex items-center p-2 rounded-lg text-dark hover:bg-gray-400 {{ request()->routeIs('dashboard') ? 'bg-gray-400' : '' }}">
+          <a href="{{ route('admin.dashboard') }}" class="flex items-center p-2 rounded-lg text-dark hover:bg-gray-400 {{ request()->routeIs('dashboard') ? 'bg-gray-400' : '' }}">
             <span class="mr-3 text-xl"></span>
             <span class="font-medium">Beranda</span>
           </a>

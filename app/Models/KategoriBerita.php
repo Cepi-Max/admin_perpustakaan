@@ -10,6 +10,11 @@ class KategoriBerita extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'slug',
+        'color',
+    ];
     protected $guarded = [];
 
     public function berita(): HasMany

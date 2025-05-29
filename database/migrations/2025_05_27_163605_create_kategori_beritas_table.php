@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('kategori_beritas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->char('slug');
-            $table->string('color');
+            $table->string('slug')->unique(); // Slug dibuat unik dan tipe string lebih fleksibel dari char
+            $table->string('color')->nullable(); // Color dijadikan nullable untuk fleksibilitas
             $table->timestamps();
         });
     }

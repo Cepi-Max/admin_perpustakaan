@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('breadcrumb', 'Galeri')
+@section('breadcrumb', 'Iklan')
 
 @section('content')
 <div x-data="galleryViewer()" class="space-y-6">
@@ -8,13 +8,13 @@
     <div class="bg-white rounded-xl shadow-sm p-6">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900">Galeri Perpustakaan</h1>
-                <p class="text-gray-600 mt-1">Kelola koleksi gambar perpustakaan</p>
+                <h1 class="text-3xl font-bold text-gray-900">Iklan Perpustakaan</h1>
+                <p class="text-gray-600 mt-1">Kelola iklan perpustakaan</p>
             </div>
-            <a href="{{ route('admin.galeri.form') }}" 
+            <a href="{{ route('admin.iklan.form') }}" 
                class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
                 <i class="bi bi-plus-lg mr-2"></i>
-                Tambah Gambar
+                Tambah Iklan
             </a>
         </div>
 
@@ -24,8 +24,8 @@
                 <div class="flex items-center">
                     <i class="bi bi-images text-blue-600 text-2xl mr-3"></i>
                     <div>
-                        <p class="text-blue-600 text-sm font-medium">Total Gambar</p>
-                        <p class="text-2xl font-bold text-blue-800">{{ $galeris->count() }}</p>
+                        <p class="text-blue-600 text-sm font-medium">Total Iklan</p>
+                        <p class="text-2xl font-bold text-blue-800">{{ $iklans->count() }}</p>
                     </div>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                     <div>
                         <p class="text-purple-600 text-sm font-medium">Terakhir Upload</p>
                         <p class="text-sm font-semibold text-purple-800">
-                            @if($galeris->count() > 0)
-                                {{ \Carbon\Carbon::parse($galeris->first()->created_at)->diffForHumans() }}
+                            @if($iklans->count() > 0)
+                                {{ \Carbon\Carbon::parse($iklans->first()->created_at)->diffForHumans() }}
                             @else
                                 -
                             @endif
@@ -57,7 +57,7 @@
     </div>
 
     <!-- Toolbar -->
-    @if($galeris->count() > 0)
+    @if($iklans->count() > 0)
     <div class="bg-white rounded-xl shadow-sm p-4">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex flex-wrap items-center gap-2">
@@ -86,47 +86,54 @@
     </div>
     @endif
 
-    <!-- Gallery Grid -->
-    <form id="deleteForm" method="POST" action="{{ route('admin.galeri.delete') }}">
+    <!-- Iklan Grid -->
+    <form id="deleteForm" method="POST" action="{{ route('admin.iklan.delete') }}">
         @csrf
         
-        @if($galeris->count() > 0)
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            @foreach ($galeris as $index => $galeri)
+        @if($iklans->count() > 0)
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+            @foreach ($iklans as $index => $iklan)
                 <div class="group relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105">
+                    
                     <!-- Image Container -->
-                    <div class="relative aspect-square overflow-hidden">
-                        <img src="{{ asset('storage/' . $galeri->gambar) }}" 
-                             alt="{{ $galeri->judul }}" 
-                             class="w-full h-full object-cover cursor-pointer transition-transform duration-300 group-hover:scalfe-110" 
-                             @click="openPopup({{ $index }})"
-                             loading="lazy"
-                             onerror="this.src='{{ asset('images/placeholder.jpg') }}'">
-                        
-                        <!-- Overlay -->
-                        {{-- <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                            <i class="bi bi-zoom-in text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
-                        </div> --}}
-                        
-                        <!-- Checkbox -->
-                        <div class="absolute top-2 right-2">
-                            <input type="checkbox" 
-                                   name="ids[]" 
-                                   value="{{ $galeri->id }}"
-                                   class="w-5 h-5 text-blue-600 bg-white border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 shadow-lg cursor-pointer gallery-checkbox"
-                                   @change="updateSelectedCount">
+                    <div class="relative w-full h-[296px] overflow-hidden">
+                        <!-- Gambar (klik untuk popup) -->
+                        <img src="{{ asset('storage/' . $iklan->gambar) }}" 
+                            alt="{{ $iklan->deskripsi }}" 
+                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer"
+                            @click="openPopup({{ $index }})"
+                            loading="lazy"
+                            onerror="this.src='{{ asset('images/placeholder.jpg') }}'">
+
+                        <!-- Overlay Deskripsi -->
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-end p-4 pointer-events-none">
+                            <p class="text-white text-sm line-clamp-2" title="{{ $iklan->deskripsi }}">
+                                {{ $iklan->deskripsi }}
+                            </p>
                         </div>
-                        
+
+                        <!-- Checkbox (tidak trigger popup) -->
+                        <div class="absolute top-2 right-2 z-20">
+                            <label>
+                                <input type="checkbox" 
+                                    name="ids[]" 
+                                    value="{{ $iklan->id }}"
+                                    class="w-5 h-5 text-blue-600 bg-white border-2 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 shadow-lg cursor-pointer gallery-checkbox"
+                                    @change="updateSelectedCount"
+                                    @click.stop>
+                            </label>
+                        </div>
+
                         <!-- Quick Actions -->
-                        <div class="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                             <div class="flex gap-1">
-                                <a href="{{ route('admin.galeri.edit', $galeri->id) }}" 
-                                   class="inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
-                                   title="Edit">
+                                <a href="{{ route('admin.iklan.edit', $iklan->id) }}" 
+                                    class="inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+                                    title="Edit">
                                     <i class="bi bi-pencil text-xs"></i>
                                 </a>
                                 <button type="button" 
-                                        @click="deleteOne({{ $galeri->id }})"
+                                        @click.stop="deleteOne({{ $iklan->id }})"
                                         class="inline-flex items-center justify-center w-8 h-8 bg-red-600 text-white rounded-full hover:bg-red-700 transition-colors"
                                         title="Hapus">
                                     <i class="bi bi-trash text-xs"></i>
@@ -134,19 +141,16 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Content -->
+
+                    <!-- Judul & Tanggal -->
                     <div class="p-4">
-                        <h3 class="font-semibold text-gray-900 text-sm truncate mb-1" title="{{ $galeri->judul }}">
-                            {{ $galeri->judul }}
+                        <h3 class="font-semibold text-gray-900 text-sm truncate mb-1" title="{{ $iklan->judul }}">
+                            {{ $iklan->judul }}
                         </h3>
-                        <p class="text-xs text-gray-600 line-clamp-2 mb-2" title="{{ $galeri->deskripsi }}">
-                            {{ $galeri->deskripsi }}
-                        </p>
                         <div class="flex items-center text-xs text-gray-400">
                             <i class="bi bi-calendar3 mr-1"></i>
-                            <time datetime="{{ $galeri->tanggal_upload }}">
-                                {{ \Carbon\Carbon::parse($galeri->tanggal_upload)->translatedFormat('d M Y') }}
+                            <time datetime="{{ $iklan->tanggal_upload }}">
+                                {{ \Carbon\Carbon::parse($iklan->tanggal_upload)->translatedFormat('d M Y') }}
                             </time>
                         </div>
                     </div>
@@ -159,12 +163,12 @@
             <div class="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
                 <i class="bi bi-images text-gray-400 text-4xl"></i>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Belum ada gambar</h3>
-            <p class="text-gray-600 mb-6">Mulai dengan menambahkan gambar pertama ke galeri perpustakaan</p>
-            <a href="{{ route('admin.galeri.form') }}" 
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Belum ada iklan</h3>
+            <p class="text-gray-600 mb-6">Mulai dengan menambahkan iklan pertama perpustakaan</p>
+            <a href="{{ route('admin.iklan.form') }}" 
                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
                 <i class="bi bi-plus-lg mr-2"></i>
-                Tambah Gambar Pertama
+                Tambah Iklan Pertama
             </a>
         </div>
         @endif
@@ -184,7 +188,7 @@
          @keydown.arrow-right.window="nextImage">
         
         <!-- Backdrop -->
-        <div class="fixed inset-0 bg-black bg-opacity-90" @click="closeModal"></div>
+        <div class="fixed inset-0 bg-black bg-opacity-90 " @click="closeModal"></div>
         
         <!-- Modal Content -->
         <div class="relative w-full h-full flex items-center justify-center p-4">
@@ -216,7 +220,7 @@
                      class="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl">
                 
                 <!-- Image Info -->
-                <div class="mt-4 text-center text-white max-w-2xl">
+                <div class="text-center text-white max-w-2xl">
                     <h2 x-text="activeTitle" class="text-2xl font-bold mb-2"></h2>
                     <p x-text="activeDescription" class="text-gray-300 mb-3"></p>
                     <div class="flex items-center justify-center gap-4 text-sm text-gray-400">
@@ -279,10 +283,10 @@
             showDeleteModal: false,
             deleteMessage: '',
             deleteAction: null,
-            imageList: @json($galeris->pluck('gambar')->map(fn($g) => asset('storage/' . $g))),
-            titleList: @json($galeris->pluck('judul')),
-            descriptionList: @json($galeris->pluck('deskripsi')),
-            dateList: @json($galeris->map(fn($g) => \Carbon\Carbon::parse($g->tanggal_upload)->translatedFormat('d F Y'))),
+            imageList: @json($iklans->pluck('gambar')->map(fn($g) => asset('storage/' . $g))),
+            titleList: @json($iklans->pluck('judul')),
+            descriptionList: @json($iklans->pluck('deskripsi')),
+            dateList: @json($iklans->map(fn($g) => \Carbon\Carbon::parse($g->tanggal_upload)->translatedFormat('d F Y'))),
             
             openPopup(index) {
               console.log('Popup triggered for index:', index);
