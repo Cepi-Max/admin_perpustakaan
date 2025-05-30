@@ -19,25 +19,6 @@ class FeedbackController extends Controller
         return view('admin.feedback.detail', compact('item'));
     }
 
-    public function form()
-    {
-        return view('admin.feedback.form');
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'no_hp' => 'nullable|string|max:50',
-            'kritik' => 'nullable|string|max:1000',
-            'saran' => 'nullable|string|max:1000',
-        ]);
-
-        Feedback::create($request->all());
-
-        return redirect()->back()->with('success', 'Terima kasih atas masukan Anda!');
-    }
-
+    
 }
 

@@ -4,6 +4,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\Guest\GuestBeritaController;
+use App\Http\Controllers\Guest\GuestDashboardController;
+use App\Http\Controllers\Guest\GuestFeedbackController;
+use App\Http\Controllers\Guest\GuestGaleriController;
 use App\Http\Controllers\IklanController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\ProfileController;
@@ -12,6 +16,10 @@ use App\Models\Question;
 use App\Models\QuizVisitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+
+
+
 
 
 
@@ -50,10 +58,21 @@ Route::post('/submit-npm', function (Request $request) {
     ]);
 });
 Route::get('/quiz-questions', [QuestionController::class, 'getQuestionsByCategory']);
-Route::get('/kritik-saran/form', [FeedbackController::class, 'form'])->name('feedback.form');
-Route::post('/kritik-saran', [FeedbackController::class, 'store'])->name('feedback.store');
 
-// Admin Route
+// Pengunjung Perpustakaan
+Route::prefix('lib')->name('guest.')->group(function () {
+    // Beranda
+    Route::get('/beranda', [GuestDashboardController::class, 'index'])->name('dashboard');
+    // Berita
+    Route::get('/berita', [GuestBeritaController::class, 'index'])->name('berita');
+    Route::get('/berita/{slug}', [GuestBeritaController::class, 'show'])->name('berita.show');
+    // Galeri
+    Route::get('/galeri', [GuestGaleriController::class, 'index'])->name('galeri');
+    // Kritik & Saran
+    Route::get('/kritik-saran/form', [GuestFeedbackController::class, 'form'])->name('feedback.form');
+    Route::post('/kritik-saran', [GuestFeedbackController::class, 'store'])->name('feedback.store');
+});
+// Admin Perpustakaan Route
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     // Galeri

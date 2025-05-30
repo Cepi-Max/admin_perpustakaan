@@ -6,19 +6,19 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
   <div class="bg-white border-l-4 border-[#7F8CAA] rounded-2xl shadow-lg p-6 text-center hover:scale-[1.03] transition-transform">
     <h6 class="text-gray-700 font-bold mb-2 text-sm tracking-wide uppercase">Total Pengunjung Hari Ini</h6>
-    <div class="text-4xl font-extrabold text-gray-900">5000</div>
+    <div class="text-4xl font-extrabold text-gray-900">500</div>
   </div>
   <div class="bg-white border-l-4 border-[#7F8CAA] rounded-2xl shadow-lg p-6 text-center hover:scale-[1.03] transition-transform">
-    <h6 class="text-gray-700 font-bold mb-2 text-sm tracking-wide uppercase">Petani Terdaftar</h6>
-    <div class="text-4xl font-extrabold text-gray-900">150</div>
+    <h6 class="text-gray-700 font-bold mb-2 text-sm tracking-wide uppercase">Anggota Terdaftar</h6>
+    <div class="text-4xl font-extrabold text-gray-900">20</div>
   </div>
   <div class="bg-white border-l-4 border-[#7F8CAA] rounded-2xl shadow-lg p-6 text-center hover:scale-[1.03] transition-transform">
-    <h6 class="text-gray-700 font-bold mb-2 text-sm tracking-wide uppercase">Transaksi Bulan Ini</h6>
+    <h6 class="text-gray-700 font-bold mb-2 text-sm tracking-wide uppercase">Buku Dipinjam Hari Ini</h6>
     <div class="text-4xl font-extrabold text-gray-900">25</div>
   </div>
 </div>
 
-<!-- Charts -->
+{{-- <!-- Charts -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
   <div class="bg-white rounded-2xl shadow p-6">
     <h2 class="text-lg font-semibold text-gray-800 mb-4">📊 Grafik Penjualan Bulan Ini</h2>
@@ -71,7 +71,7 @@
       </tbody>
     </table>
   </div>
-</div>
+</div> --}}
 
 @push('scripts')
 @endpush

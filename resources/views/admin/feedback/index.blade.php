@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4 text-gray-800">Daftar Kritik & Saran <a href="{{ route('feedback.form') }}" class="text-blue-800 underline">Coba beri kritik saran</a></h1>
+    <h1 class="text-2xl font-bold mb-4 text-gray-800">Daftar Kritik & Saran</h1>
 
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 text-sm rounded-lg shadow">

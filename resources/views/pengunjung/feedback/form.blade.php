@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('pengunjung.layouts.app')
 
 @section('content')
 <div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow space-y-4">
@@ -6,7 +6,7 @@
         <div class="p-4 bg-green-100 text-green-800 rounded">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('feedback.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('guest.feedback.store') }}" method="POST" class="space-y-4">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
