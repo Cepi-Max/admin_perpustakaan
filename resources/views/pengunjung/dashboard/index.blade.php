@@ -1,5 +1,4 @@
 @extends('pengunjung.layouts.app')
-@section('title', $title)
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
