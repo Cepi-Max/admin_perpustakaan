@@ -134,7 +134,7 @@
 
                 {{-- Preview Gambar --}}
                 <img id="image-preview"
-                    src="{{ $beritaBySlug && $beritaBySlug->image ? asset('storage/images/publicImg/article/articleImg/' . $beritaBySlug->image) : '' }}"
+                    src="{{ $beritaBySlug && $beritaBySlug->image ? asset('storage/berita/' . $beritaBySlug->image) : '' }}"
                     class="absolute inset-0 object-contain w-full h-full {{ $beritaBySlug && $beritaBySlug->image ? '' : 'hidden' }}"
                     alt="Preview Gambar">
 

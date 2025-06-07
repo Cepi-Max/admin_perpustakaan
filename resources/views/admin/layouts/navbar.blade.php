@@ -15,15 +15,15 @@
                     <!-- Right side buttons -->
                     <div class="flex items-center space-x-3">
                         <!-- Notifications -->
-                        <button class="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                        {{-- <button class="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors duration-200">
                             <i class="bi bi-bell text-lg"></i>
                             <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">3</span>
-                        </button>
+                        </button> --}}
 
                         <!-- Settings -->
-                        <button class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors duration-200">
+                        {{-- <button class="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors duration-200">
                             <i class="bi bi-gear text-lg"></i>
-                        </button>
+                        </button> --}}
 
                         <!-- Logout -->
                         <form method="POST" action="{{ route('logout') }}" class="inline">
