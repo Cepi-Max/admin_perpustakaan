@@ -43,15 +43,20 @@ class GaleriController extends Controller
         
         $data = $request->validate($rules);
 
-        $galeri = Galeri::findOrFail($id);
+        if($id == null){
+            $galeri = new Galeri;
+        } else {    
+            $galeri = Galeri::findOrFail($id);
+        }
+
         if ($request->hasFile('gambar')) {
-            if ($galeri && $galeri->gambar) {
+            if (($id != null) && $galeri->gambar) {
                 Storage::disk('public')->delete($galeri->gambar);
             }
             $data['gambar'] = $request->file('gambar')->store('galeri', 'public');
         }
 
-        if ($galeri) {
+        if ($id != null) {
             $galeri->update($data);
             $message = 'Gambar berhasil diperbarui.';
         } else {

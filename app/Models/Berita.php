@@ -14,7 +14,7 @@ class Berita extends Model
 
     use HasFactory;
 
-    protected $fillable = ['slug', 'title', 'body', 'image', 'inovator', 'seen'];
+    protected $fillable = ['slug', 'berita_category_id', 'title', 'body', 'image', 'inovator', 'seen'];
     protected $with = ['author', 'kategori_berita'];
 
     public function author(): BelongsTo
@@ -39,14 +39,9 @@ class Berita extends Model
             $query->whereHas('kategori_berita', fn($query)=>$query->where('slug', $kategori_berita))
         );
 
-        $query->when($filter['admin'] ?? false, 
+        $query->when($filter['author'] ?? false, 
         fn($query, $author)=>
             $query->whereHas('author', fn($query)=>$query->where('name', $author))
-        );
-
-        $query->when($filter['author'] ?? false, 
-            fn($query, $inovator) =>
-                $query->where('inovator', $inovator)
         );
     }
 

@@ -49,7 +49,7 @@
     </div>
 
     <!-- Charts Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    {{-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <!-- Visitor Trend Chart -->
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-cyan-50">
@@ -88,7 +88,7 @@
                 <canvas id="categoryChart" width="400" height="200"></canvas>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Table Data Buku Terpopuler -->
     <div class="bg-white rounded-2xl shadow-lg overflow-hidden">

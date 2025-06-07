@@ -39,23 +39,28 @@ class IklanController extends Controller
         ];
         
         $data = $request->validate($rules);
+        
+        if($id == null){
+            $iklan = new Iklan;
+        }else{
+            $iklan = Iklan::findOrFail($id);
+        }
 
-        $iklan = Iklan::findOrFail($id);
         if ($request->hasFile('gambar')) {
-            if ($iklan && $iklan->gambar) {
+            if (($id != null) && $iklan->gambar) {
                 Storage::disk('public')->delete($iklan->gambar);
             }
             $data['gambar'] = $request->file('gambar')->store('iklan', 'public');
         }
-
-        if ($iklan) {
+        
+        if ($id != null) {
             $iklan->update($data);
             $message = 'Iklan berhasil diperbarui.';
         } else {
             Iklan::create($data);
             $message = 'Iklan berhasil ditambahkan.';
         }
-
+        
         return redirect()->route('admin.iklan.show')->with('success', $message);
     }
 

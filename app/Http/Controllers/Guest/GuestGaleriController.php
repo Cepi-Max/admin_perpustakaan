@@ -10,7 +10,7 @@ class GuestGaleriController extends Controller
 {
     public function index()
     {
-        $galeri = Galeri::latest()->paginate(10)->withQueryString();
+        $galeri = Galeri::latest()->paginate(6)->withQueryString();
 
         $data = [
             'title' => 'Galeri-Perpustakaan',

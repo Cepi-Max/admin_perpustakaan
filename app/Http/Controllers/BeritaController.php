@@ -66,7 +66,7 @@ class BeritaController extends Controller
          if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $file = $request->file('image'); 
             $fileName = now()->format('Y-m-d_H-i-s') . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $path   = 'images/publicImg/article/articleImg/'.$fileName;
+            $path   = 'berita/'.$fileName;
             Storage::disk('public')->put($path, file_get_contents($file));
          } else {
              $fileName = 'default.png';
@@ -133,10 +133,10 @@ class BeritaController extends Controller
             $file = $request->file('image');
 
             $fileName = now()->format('Y-m-d_H-i-s') . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $path = 'images/publicImg/article/articleImg/' . $fileName;
+            $path = 'berita/' . $fileName;
 
             if ($articleBySlug->image && $articleBySlug->image !== 'default.png') {
-                Storage::disk('public')->delete('images/publicImg/article/articleImg/' . $articleBySlug->image);
+                Storage::disk('public')->delete('berita/' . $articleBySlug->image);
             }
 
             // Simpan gambar baru
@@ -160,7 +160,7 @@ class BeritaController extends Controller
             $articleBySlug = Berita::where('slug', $slug)->firstOrFail();
 
             if (!empty($articleBySlug->image) && $articleBySlug->image !== 'default.png') {
-                $filePath = 'images/publicImg/article/articleImg/' . $articleBySlug->image;
+                $filePath = 'berita/' . $articleBySlug->image;
                 Storage::disk('public')->delete($filePath);
             }
 
